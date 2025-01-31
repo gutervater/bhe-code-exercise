@@ -16,3 +16,5 @@ build:
 run:
 	go run -C go main.go
 
+test:
+	go test -C go ./...
