@@ -1,0 +1,57 @@
+openapi: 3.0.0
+info:
+  description: "This api does one thing and one thing only, get you a prime by number."
+  title: Sieve of Eratosthenes API
+  version: 1.0.0
+servers:
+- description: Eratosthenes server
+  url: https://api.eratosthenes.com
+- description: "On second thought, the more likely one to exist"
+  url: http://localhost:8080
+paths:
+  /primebynumber/{nthprime}:
+    get:
+      description: Returns the nth prime number based on the provided path variable.
+      operationId: getNthPrime
+      parameters:
+      - explode: false
+        in: path
+        name: nthprime
+        required: true
+        schema:
+          example: 10
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getNthPrime_200_response'
+          description: Successful response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getNthPrime_400_response'
+          description: Bad Request - must be a number.
+      summary: Retrieve nth prime number
+components:
+  schemas:
+    getNthPrime_200_response:
+      example:
+        prime: 29
+      properties:
+        prime:
+          example: 29
+          type: integer
+      type: object
+    getNthPrime_400_response:
+      example:
+        error: "nthprime value must be <= 1,000,000,000."
+      properties:
+        error:
+          example: "nthprime value must be <= 1,000,000,000."
+          type: string
+      type: object
