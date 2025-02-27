@@ -3,16 +3,17 @@ info:
   title: Sieve of Eratosthenes API
   description: This api does one thing and one thing only, get you a prime by number.
   version: 1.0.0
+
 servers:
-  - url: https://api.eratosthenes.com
-    description: Eratosthenes server
+
   - url: http://localhost:8080
-    description: On second thought, the more likely one to exist
+    description: localhost server
 paths:
   /primebynumber/{nthprime}:
     get:
+      tags: [Eratosthenes]
       summary: Retrieve nth prime number
-      description: Returns the nth prime number based on the provided path variable.
+      description: Returns the nth prime number based on the provided path variable. The 0th prime is 2
       operationId: getNthPrime
       parameters:
         - name: nthprime
@@ -22,6 +23,7 @@ paths:
             type: integer
             format: int64
             example: 10
+            minimum: 0
       responses:
         "200":
           description: Successful response
@@ -29,10 +31,14 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - prime
                 properties:
                   prime:
                     type: integer
+                    format: int64
                     example: 29
+                    minimum: 0
         "400":
           description: Bad Request - must be a number.
           content:
@@ -42,4 +48,4 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "nthprime value must be <= 1,000,000,000."
+                    example: "nthprime value must be >= 0"

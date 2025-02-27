@@ -17,25 +17,25 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-// DefaultAPIController binds http requests to an api service and writes the service results to the http response
-type DefaultAPIController struct {
-	service      DefaultAPIServicer
+// EratosthenesAPIController binds http requests to an api service and writes the service results to the http response
+type EratosthenesAPIController struct {
+	service      EratosthenesAPIServicer
 	errorHandler ErrorHandler
 }
 
-// DefaultAPIOption for how the controller is set up.
-type DefaultAPIOption func(*DefaultAPIController)
+// EratosthenesAPIOption for how the controller is set up.
+type EratosthenesAPIOption func(*EratosthenesAPIController)
 
-// WithDefaultAPIErrorHandler inject ErrorHandler into controller
-func WithDefaultAPIErrorHandler(h ErrorHandler) DefaultAPIOption {
-	return func(c *DefaultAPIController) {
+// WithEratosthenesAPIErrorHandler inject ErrorHandler into controller
+func WithEratosthenesAPIErrorHandler(h ErrorHandler) EratosthenesAPIOption {
+	return func(c *EratosthenesAPIController) {
 		c.errorHandler = h
 	}
 }
 
-// NewDefaultAPIController creates a default api controller
-func NewDefaultAPIController(s DefaultAPIServicer, opts ...DefaultAPIOption) *DefaultAPIController {
-	controller := &DefaultAPIController{
+// NewEratosthenesAPIController creates a default api controller
+func NewEratosthenesAPIController(s EratosthenesAPIServicer, opts ...EratosthenesAPIOption) *EratosthenesAPIController {
+	controller := &EratosthenesAPIController{
 		service:      s,
 		errorHandler: DefaultErrorHandler,
 	}
@@ -47,8 +47,8 @@ func NewDefaultAPIController(s DefaultAPIServicer, opts ...DefaultAPIOption) *De
 	return controller
 }
 
-// Routes returns all the api routes for the DefaultAPIController
-func (c *DefaultAPIController) Routes() Routes {
+// Routes returns all the api routes for the EratosthenesAPIController
+func (c *EratosthenesAPIController) Routes() Routes {
 	return Routes{
 		"GetNthPrime": Route{
 			strings.ToUpper("Get"),
@@ -59,10 +59,11 @@ func (c *DefaultAPIController) Routes() Routes {
 }
 
 // GetNthPrime - Retrieve nth prime number
-func (c *DefaultAPIController) GetNthPrime(w http.ResponseWriter, r *http.Request) {
+func (c *EratosthenesAPIController) GetNthPrime(w http.ResponseWriter, r *http.Request) {
 	nthprimeParam, err := parseNumericParameter[int64](
 		chi.URLParam(r, "nthprime"),
 		WithRequire[int64](parseInt64),
+		WithMinimum[int64](0),
 	)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Param: "nthprime", Err: err}, nil)

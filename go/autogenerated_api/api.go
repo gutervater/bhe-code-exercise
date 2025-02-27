@@ -15,17 +15,17 @@ import (
 	"net/http"
 )
 
-// DefaultAPIRouter defines the required methods for binding the api requests to a responses for the DefaultAPI
-// The DefaultAPIRouter implementation should parse necessary information from the http request,
-// pass the data to a DefaultAPIServicer to perform the required actions, then write the service results to the http response.
-type DefaultAPIRouter interface {
+// EratosthenesAPIRouter defines the required methods for binding the api requests to a responses for the EratosthenesAPI
+// The EratosthenesAPIRouter implementation should parse necessary information from the http request,
+// pass the data to a EratosthenesAPIServicer to perform the required actions, then write the service results to the http response.
+type EratosthenesAPIRouter interface {
 	GetNthPrime(http.ResponseWriter, *http.Request)
 }
 
-// DefaultAPIServicer defines the api actions for the DefaultAPI service
+// EratosthenesAPIServicer defines the api actions for the EratosthenesAPI service
 // This interface intended to stay up to date with the openapi yaml used to generate it,
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
-type DefaultAPIServicer interface {
+type EratosthenesAPIServicer interface {
 	GetNthPrime(context.Context, int64) (ImplResponse, error)
 }
