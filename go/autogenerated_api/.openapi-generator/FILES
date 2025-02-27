@@ -1,8 +1,9 @@
+.openapi-generator-ignore
 README.md
 api.go
 api/openapi.yaml
-api_default.go
-api_default_service.go
+api_eratosthenes.go
+api_eratosthenes_service.go
 error.go
 helpers.go
 impl.go

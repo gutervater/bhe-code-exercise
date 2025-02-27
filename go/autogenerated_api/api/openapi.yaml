@@ -4,14 +4,13 @@ info:
   title: Sieve of Eratosthenes API
   version: 1.0.0
 servers:
-- description: Eratosthenes server
-  url: https://api.eratosthenes.com
-- description: "On second thought, the more likely one to exist"
+- description: localhost server
   url: http://localhost:8080
 paths:
   /primebynumber/{nthprime}:
     get:
       description: Returns the nth prime number based on the provided path variable.
+        The 0th prime is 2
       operationId: getNthPrime
       parameters:
       - explode: false
@@ -21,6 +20,7 @@ paths:
         schema:
           example: 10
           format: int64
+          minimum: 0
           type: integer
         style: simple
       responses:
@@ -37,6 +37,8 @@ paths:
                 $ref: '#/components/schemas/getNthPrime_400_response'
           description: Bad Request - must be a number.
       summary: Retrieve nth prime number
+      tags:
+      - Eratosthenes
 components:
   schemas:
     getNthPrime_200_response:
@@ -45,13 +47,17 @@ components:
       properties:
         prime:
           example: 29
+          format: int64
+          minimum: 0
           type: integer
+      required:
+      - prime
       type: object
     getNthPrime_400_response:
       example:
-        error: "nthprime value must be <= 1,000,000,000."
+        error: nthprime value must be >= 0
       properties:
         error:
-          example: "nthprime value must be <= 1,000,000,000."
+          example: nthprime value must be >= 0
           type: string
       type: object

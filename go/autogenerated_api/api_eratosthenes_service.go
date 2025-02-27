@@ -16,21 +16,21 @@ import (
 	"net/http"
 )
 
-// DefaultAPIService is a service that implements the logic for the DefaultAPIServicer
-// This service should implement the business logic for every endpoint for the DefaultAPI API.
+// EratosthenesAPIService is a service that implements the logic for the EratosthenesAPIServicer
+// This service should implement the business logic for every endpoint for the EratosthenesAPI API.
 // Include any external packages or services that will be required by this service.
-type DefaultAPIService struct {
+type EratosthenesAPIService struct {
 }
 
-// NewDefaultAPIService creates a default api service
-func NewDefaultAPIService() *DefaultAPIService {
-	return &DefaultAPIService{}
+// NewEratosthenesAPIService creates a default api service
+func NewEratosthenesAPIService() *EratosthenesAPIService {
+	return &EratosthenesAPIService{}
 }
 
 // GetNthPrime - Retrieve nth prime number
-func (s *DefaultAPIService) GetNthPrime(ctx context.Context, nthprime int64) (ImplResponse, error) {
+func (s *EratosthenesAPIService) GetNthPrime(ctx context.Context, nthprime int64) (ImplResponse, error) {
 	// TODO - update GetNthPrime with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_eratosthenes_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, GetNthPrime200Response{}) or use other options such as http.Ok ...
 	// return Response(200, GetNthPrime200Response{}), nil
